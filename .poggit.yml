@@ -7,4 +7,5 @@ projects:
     path: ""
     includeDirs:
       vendor: vendor
+    fullGzip: true
 ...
