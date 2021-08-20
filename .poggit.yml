@@ -5,4 +5,6 @@ branches:
 projects:
   DiscordBot:
     path: ""
+    includeDirs:
+      vendor: vendor
 ...
