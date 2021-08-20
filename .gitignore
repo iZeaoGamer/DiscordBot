@@ -1,5 +1,6 @@
-/vendor/
 /dist/
+/vendor/bin/*
+/vendor/team-reflex/discord-php/bin/*
 
 *.phar
 *.txt
