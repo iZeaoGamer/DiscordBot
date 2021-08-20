@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '4132464850e95860da20d075c006c61016ab0bd2',
+    'reference' => '48f5259bb6aefdfdf6f594e391adc31a2fcae793',
     'name' => 'jaxkdev/discordbot',
   ),
   'versions' => 
@@ -71,7 +71,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '4132464850e95860da20d075c006c61016ab0bd2',
+      'reference' => '48f5259bb6aefdfdf6f594e391adc31a2fcae793',
     ),
     'mollie/polyfill-libsodium' => 
     array (
