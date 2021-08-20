@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '48f5259bb6aefdfdf6f594e391adc31a2fcae793',
+    'reference' => '54dff7a8e381134114269acaeb268b5af0f438e7',
     'name' => 'jaxkdev/discordbot',
   ),
   'versions' => 
@@ -45,7 +45,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '48f5259bb6aefdfdf6f594e391adc31a2fcae793',
+      'reference' => '54dff7a8e381134114269acaeb268b5af0f438e7',
     ),
     'mollie/polyfill-libsodium' => 
     array (
