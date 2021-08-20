@@ -1,11 +1,9 @@
 /dist/
 /vendor/bin/*
 /vendor/team-reflex/discord-php/bin/*
-
+.ds_store
 *.phar
 *.txt
 *.DS_STORE
 
-TEST.php
-PHPSTAN.php
 phpstan.neon
