@@ -261,6 +261,10 @@ class OptionsResolver implements Options
     }
 
     /**
+     * Sets a list of default values.
+     *
+     * @param array $defaults The default values to set
+     *
      * @return $this
      *
      * @throws AccessException If called from a lazy option or normalizer
@@ -279,6 +283,8 @@ class OptionsResolver implements Options
      *
      * Returns true if {@link setDefault()} was called for this option.
      * An option is also considered set if it was set to null.
+     *
+     * @param string $option The option name
      *
      * @return bool Whether a default value is set
      */
@@ -315,6 +321,8 @@ class OptionsResolver implements Options
      *
      * An option is required if it was passed to {@link setRequired()}.
      *
+     * @param string $option The name of the option
+     *
      * @return bool Whether the option is required
      */
     public function isRequired(string $option)
@@ -340,6 +348,8 @@ class OptionsResolver implements Options
      * An option is missing if it was passed to {@link setRequired()}, but not
      * to {@link setDefault()}. This option must be passed explicitly to
      * {@link resolve()}, otherwise an exception will be thrown.
+     *
+     * @param string $option The name of the option
      *
      * @return bool Whether the option is missing
      */
@@ -391,6 +401,8 @@ class OptionsResolver implements Options
      *
      * Returns true for any option passed to {@link setDefault()},
      * {@link setRequired()} or {@link setDefined()}.
+     *
+     * @param string $option The option name
      *
      * @return bool Whether the option is defined
      */
@@ -504,6 +516,9 @@ class OptionsResolver implements Options
      *
      * The resolved option value is set to the return value of the closure.
      *
+     * @param string   $option     The option name
+     * @param \Closure $normalizer The normalizer
+     *
      * @return $this
      *
      * @throws UndefinedOptionsException If the option is undefined
@@ -544,6 +559,10 @@ class OptionsResolver implements Options
      * the option.
      *
      * The resolved option value is set to the return value of the closure.
+     *
+     * @param string   $option       The option name
+     * @param \Closure $normalizer   The normalizer
+     * @param bool     $forcePrepend If set to true, prepend instead of appending
      *
      * @return $this
      *
@@ -668,6 +687,7 @@ class OptionsResolver implements Options
      * acceptable. Additionally, fully-qualified class or interface names may
      * be passed.
      *
+     * @param string          $option       The option name
      * @param string|string[] $allowedTypes One or more accepted types
      *
      * @return $this
@@ -702,6 +722,7 @@ class OptionsResolver implements Options
      * acceptable. Additionally, fully-qualified class or interface names may
      * be passed.
      *
+     * @param string          $option       The option name
      * @param string|string[] $allowedTypes One or more accepted types
      *
      * @return $this
@@ -869,6 +890,8 @@ class OptionsResolver implements Options
      *  - Options have invalid types;
      *  - Options have invalid values.
      *
+     * @param array $options A map of option names to values
+     *
      * @return array The merged and validated options
      *
      * @throws UndefinedOptionsException If an option name is undefined
@@ -930,7 +953,8 @@ class OptionsResolver implements Options
     /**
      * Returns the resolved value of an option.
      *
-     * @param bool $triggerDeprecation Whether to trigger the deprecation or not (true by default)
+     * @param string $option             The option name
+     * @param bool   $triggerDeprecation Whether to trigger the deprecation or not (true by default)
      *
      * @return mixed The option value
      *
@@ -1049,7 +1073,7 @@ class OptionsResolver implements Options
                 $fmtAllowedTypes = implode('" or "', $this->allowedTypes[$option]);
                 $fmtProvidedTypes = implode('|', array_keys($invalidTypes));
                 $allowedContainsArrayType = \count(array_filter($this->allowedTypes[$option], static function ($item) {
-                    return str_ends_with($item, '[]');
+                    return '[]' === substr($item, -2);
                 })) > 0;
 
                 if (\is_array($value) && $allowedContainsArrayType) {
@@ -1211,8 +1235,6 @@ class OptionsResolver implements Options
     /**
      * Not supported.
      *
-     * @return void
-     *
      * @throws AccessException
      */
     public function offsetSet($option, $value)
@@ -1222,8 +1244,6 @@ class OptionsResolver implements Options
 
     /**
      * Not supported.
-     *
-     * @return void
      *
      * @throws AccessException
      */

@@ -28,7 +28,6 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 use DateTimeInterface;
-use DateTimeZone;
 use InvalidArgumentException;
 use Iterator;
 use JsonSerializable;
@@ -640,11 +639,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         }
 
         foreach ($arguments as $argument) {
-            $parsedDate = null;
-
-            if ($argument instanceof DateTimeZone) {
-                $this->setTimezone($argument);
-            } elseif ($this->dateInterval === null &&
+            if ($this->dateInterval === null &&
                 (
                     \is_string($argument) && preg_match(
                         '/^(-?\d(\d(?![\/-])|[^\d\/-]([\/-])?)*|P[T0-9].*|(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+)$/i',
@@ -653,13 +648,13 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
                     $argument instanceof DateInterval ||
                     $argument instanceof Closure
                 ) &&
-                $parsedInterval = @CarbonInterval::make($argument)
+                $parsed = @CarbonInterval::make($argument)
             ) {
-                $this->setDateInterval($parsedInterval);
-            } elseif ($this->startDate === null && $parsedDate = $this->makeDateTime($argument)) {
-                $this->setStartDate($parsedDate);
-            } elseif ($this->endDate === null && ($parsedDate = $parsedDate ?? $this->makeDateTime($argument))) {
-                $this->setEndDate($parsedDate);
+                $this->setDateInterval($parsed);
+            } elseif ($this->startDate === null && $parsed = Carbon::make($argument)) {
+                $this->setStartDate($parsed);
+            } elseif ($this->endDate === null && $parsed = Carbon::make($argument)) {
+                $this->setEndDate($parsed);
             } elseif ($this->recurrences === null && $this->endDate === null && is_numeric($argument)) {
                 $this->setRecurrences($argument);
             } elseif ($this->options === null && (\is_int($argument) || $argument === null)) {
@@ -881,7 +876,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     public function setOptions($options)
     {
-        if (!\is_int($options) && $options !== null) {
+        if (!\is_int($options) && !\is_null($options)) {
             throw new InvalidPeriodParameterException('Invalid options.');
         }
 
@@ -1226,7 +1221,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     public function setRecurrences($recurrences)
     {
-        if (!is_numeric($recurrences) && $recurrences !== null || $recurrences < 0) {
+        if (!is_numeric($recurrences) && !\is_null($recurrences) || $recurrences < 0) {
             throw new InvalidPeriodParameterException('Invalid number of recurrences.');
         }
 
@@ -1282,7 +1277,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     public function setEndDate($date, $inclusive = null)
     {
-        if ($date !== null && !$date = ([$this->dateClass, 'make'])($date)) {
+        if (!\is_null($date) && !$date = ([$this->dateClass, 'make'])($date)) {
             throw new InvalidPeriodDateException('Invalid end date.');
         }
 
@@ -1694,30 +1689,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     }
 
     /**
-     * Set the instance's timezone from a string or object and apply it to start/end.
-     *
-     * @param \DateTimeZone|string $timezone
-     *
-     * @return static
-     */
-    public function setTimezone($timezone)
-    {
-        $this->tzName = $timezone;
-        $this->timezone = $timezone;
-
-        if ($this->startDate) {
-            $this->setStartDate($this->startDate->setTimezone($timezone));
-        }
-
-        if ($this->endDate) {
-            $this->setEndDate($this->endDate->setTimezone($timezone));
-        }
-
-        return $this;
-    }
-
-    /**
-     * Set the instance's timezone from a string or object and add/subtract the offset difference to start/end.
+     * Set the instance's timezone from a string or object and add/subtract the offset difference.
      *
      * @param \DateTimeZone|string $timezone
      *
@@ -1727,14 +1699,6 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     {
         $this->tzName = $timezone;
         $this->timezone = $timezone;
-
-        if ($this->startDate) {
-            $this->setStartDate($this->startDate->shiftTimezone($timezone));
-        }
-
-        if ($this->endDate) {
-            $this->setEndDate($this->endDate->shiftTimezone($timezone));
-        }
 
         return $this;
     }
@@ -2316,7 +2280,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     protected function isCarbonPredicateMethod($callable)
     {
-        return \is_string($callable) && str_starts_with($callable, 'is') &&
+        return \is_string($callable) && substr($callable, 0, 2) === 'is' &&
             (method_exists($this->dateClass, $callable) || ([$this->dateClass, 'hasMacro'])($callable));
     }
 
@@ -2530,25 +2494,5 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     private function orderCouple($first, $second): array
     {
         return $first > $second ? [$second, $first] : [$first, $second];
-    }
-
-    private function makeDateTime($value): ?DateTimeInterface
-    {
-        if ($value instanceof DateTimeInterface) {
-            return $value;
-        }
-
-        if (\is_string($value)) {
-            $value = trim($value);
-
-            if (!preg_match('/^P[0-9T]/', $value) &&
-                !preg_match('/^R[0-9]/', $value) &&
-                preg_match('/[a-z0-9]/i', $value)
-            ) {
-                return Carbon::parse($value, $this->tzName);
-            }
-        }
-
-        return null;
     }
 }
