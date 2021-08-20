@@ -93,12 +93,12 @@ private static $installed = array (
     ),
     'nesbot/carbon' => 
     array (
-      'pretty_version' => '2.50.0',
-      'version' => '2.50.0.0',
+      'pretty_version' => '2.52.0',
+      'version' => '2.52.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f47f17d17602b2243414a44ad53d9f8b9ada5fdb',
+      'reference' => '369c0e2737c56a0f39c946dd261855255a6fccbe',
     ),
     'psr/http-message' => 
     array (
@@ -206,12 +206,12 @@ private static $installed = array (
     ),
     'react/http' => 
     array (
-      'pretty_version' => 'v1.4.0',
-      'version' => '1.4.0.0',
+      'pretty_version' => 'v1.5.0',
+      'version' => '1.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b008fb855ac446e46fab9f3eebb23a797f311595',
+      'reference' => '8a0fd7c0aa74f0db3008b1e47ca86c613cbb040e',
     ),
     'react/partial' => 
     array (
@@ -251,12 +251,12 @@ private static $installed = array (
     ),
     'react/socket' => 
     array (
-      'pretty_version' => 'v1.8.0',
-      'version' => '1.8.0.0',
+      'pretty_version' => 'v1.9.0',
+      'version' => '1.9.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '92fb72d8e58fff94da84ea86ebda26788ddd672f',
+      'reference' => 'aa6e3f8ebcd6dec3ad1ee92a449b4cc341994001',
     ),
     'react/stream' => 
     array (
@@ -287,21 +287,21 @@ private static $installed = array (
     ),
     'symfony/options-resolver' => 
     array (
-      'pretty_version' => 'v5.3.0',
-      'version' => '5.3.0.0',
+      'pretty_version' => 'v5.3.4',
+      'version' => '5.3.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '162e886ca035869866d233a2bfef70cc28f9bbe5',
+      'reference' => 'a603e5701bd6e305cfc777a8b50bf081ef73105e',
     ),
     'symfony/polyfill-mbstring' => 
     array (
-      'pretty_version' => 'v1.23.0',
-      'version' => '1.23.0.0',
+      'pretty_version' => 'v1.23.1',
+      'version' => '1.23.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '2df51500adbaebdc4c38dea4c89a2e131c45c8a1',
+      'reference' => '9174a3d80210dca8daa7f31fec659150bbeabfc6',
     ),
     'symfony/polyfill-php73' => 
     array (
@@ -314,21 +314,21 @@ private static $installed = array (
     ),
     'symfony/polyfill-php80' => 
     array (
-      'pretty_version' => 'v1.23.0',
-      'version' => '1.23.0.0',
+      'pretty_version' => 'v1.23.1',
+      'version' => '1.23.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'eca0bf41ed421bed1b57c4958bab16aa86b757d0',
+      'reference' => '1100343ed1a92e3a38f9ae122fc0eb21602547be',
     ),
     'symfony/translation' => 
     array (
-      'pretty_version' => 'v5.3.3',
-      'version' => '5.3.3.0',
+      'pretty_version' => 'v5.3.4',
+      'version' => '5.3.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '380b8c9e944d0e364b25f28e8e555241eb49c01c',
+      'reference' => 'd89ad7292932c2699cbe4af98d72c5c6bbc504c1',
     ),
     'symfony/translation-contracts' => 
     array (
