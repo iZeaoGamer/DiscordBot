@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
-import layoutStyles from "./layout.module.css";
-import "./layout.css";
+import layoutStyles from "../components/layout.module.css";
+import "../components/layout.css";
 
-import Api from "./api";
+import Api from "../components/api";
 
 export default class IndexPage extends Component {
   constructor(props) {
