@@ -410,6 +410,9 @@ array(5) {
         foreach($guild->members as $member){
             $members[] = ModelConverter::genModelMember($member);
         }
+        if($guild->region === null){
+            return;
+        }
 
         $packet = new ServerJoinPacket(ModelConverter::genModelServer($guild), $channels, $members, $roles);
         $this->client->getThread()->writeOutboundData($packet);
