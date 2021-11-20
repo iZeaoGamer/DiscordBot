@@ -102,7 +102,11 @@ class Storage{
             self::$server_map[$server->getId()] = $server;
         }
     }
-
+    public static function getServers(): array{
+        return array_keys(self::$server_map);
+    }
+    public static function getUsers(): array{
+        return array_keys(self::$server_map);
     /**
      * NOTICE, Removes all linked members,channels and roles.
      * @param string $server_id
